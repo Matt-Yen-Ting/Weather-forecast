@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/dataListFragment">
+
+    <fragment
+        android:id="@+id/dataListFragment"
+        android:name="com.weather.weatherforecast.DataListFragment"
+        tools:layout="@layout/data_list_fragment" >
+        <action
+            android:id="@+id/action_dataListFragment_to_showWeatherInfoFragment"
+            app:destination="@id/showWeatherInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/showWeatherInfoFragment"
+        android:name="com.weather.weatherforecast.ShowWeatherInfoFragment"
+        tools:layout="@layout/show_weather_fragment" >
+        <argument
+            android:name="weather_info"
+            app:argType="com.weather.weatherforecast.PassData"
+            />
+    </fragment>
+
+</navigation>

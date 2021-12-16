@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Weather forecast</string>
+    <string name="welcome_back">歡迎回來</string>
+    <string name="ok">Ok</string>
+</resources>
