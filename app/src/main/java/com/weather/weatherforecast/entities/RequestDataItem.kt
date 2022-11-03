@@ -7,7 +7,6 @@ import com.squareup.moshi.JsonClass
 data class RequestDataItem(
     @Json(name = "records") val records: Record
 ) {
-
     @JsonClass(generateAdapter = true)
     data class Record(
         @Json(name = "location") val location: List<Location>

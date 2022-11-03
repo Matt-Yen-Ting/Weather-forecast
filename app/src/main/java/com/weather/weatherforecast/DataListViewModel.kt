@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weather.weatherforecast.datastore.PreferencesDataStore
 import com.weather.weatherforecast.entities.RequestDataItem
+import com.weather.weatherforecast.entities.Result
 import com.weather.weatherforecast.repository.DataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DataListViewModel @Inject constructor(
     private val dataRepository: DataRepository,
-    private val preferencesDataStore: PreferencesDataStore
+    private val preferencesDataStore: PreferencesDataStore,
 ) : ViewModel() {
 
     val enableAppCount = preferencesDataStore.getEnableAppCount().take(1)
@@ -32,8 +33,12 @@ class DataListViewModel @Inject constructor(
 
     fun getWeatherData() {
         viewModelScope.launch {
-            val result = dataRepository.getWeatherData()
-            _weatherData.emit(result.records.location[0].weatherElement[0].weatherInfo)
+            when (val result = dataRepository.getWeatherData()) {
+                is Result.Success ->
+                    _weatherData.emit(result.data.records.location[0].weatherElement[0].weatherInfo)
+                else -> {}
+            }
+
         }
     }
 }
